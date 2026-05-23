@@ -5,64 +5,146 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { StatusBadge } from "@/components/averonix/StatusBadge";
 import { workspace, owners } from "@/mocks/data";
+import { useState } from "react";
+import { Plus, Building2, Users, Calculator, Shield, Bell, Palette, Save } from "lucide-react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({ meta: [{ title: "Settings · Averonix" }] }),
   component: SettingsPage,
 });
 
+const roleColors: Record<string, "primary" | "info" | "warning" | "muted"> = {
+  Admin: "primary", "Security reviewer": "info", Auditor: "warning", Viewer: "muted",
+};
+
 function SettingsPage() {
+  const [implWeight, setImplWeight] = useState(70);
+  const [density, setDensity] = useState("comfortable");
+  const [sidebarMode, setSidebarMode] = useState("expanded");
+
+  const usersWithRoles = owners.slice(0, 6).map((o, i) => ({
+    ...o, role: ["Admin", "Security reviewer", "Auditor", "Security reviewer", "Viewer", "Auditor"][i],
+  }));
+
   return (
     <>
-      <PageHeader title="Settings" subtitle="Workspace, scoring, vendors, notifications and appearance" />
-      <div className="p-8 grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-6xl">
-        <Section title="Workspace">
-          <Field label="Workspace name" defaultValue={workspace.name} />
-          <Field label="Default region" defaultValue="EU-West" />
-          <Field label="Time zone" defaultValue="UTC+01:00 Casablanca" />
+      <PageHeader title="Settings" subtitle="Configure workspace, scoring, users, vendor rules, notifications and appearance." />
+      <div className="p-8 space-y-5 max-w-5xl">
+        {/* Workspace */}
+        <Section icon={Building2} title="Workspace profile" description="Identity and locale for this Averonix workspace.">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Field label="Workspace name" defaultValue={workspace.name} />
+            <Field label="Region" defaultValue="EU-West" />
+            <Field label="Time zone" defaultValue="UTC+01:00 Casablanca" />
+            <div className="flex items-center justify-between rounded-md border border-border px-3 py-2">
+              <div>
+                <div className="text-sm font-medium">Demo mode</div>
+                <div className="text-xs text-muted-foreground">Use sample data and disable external syncs.</div>
+              </div>
+              <Switch defaultChecked />
+            </div>
+          </div>
+          <div className="mt-4 flex justify-end">
+            <Button onClick={() => toast.success("Workspace saved")} className="bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white"><Save className="h-4 w-4" />Save changes</Button>
+          </div>
         </Section>
 
-        <Section title="Users and roles">
+        {/* Users */}
+        <Section icon={Users} title="Users and roles" description="Manage who can access this workspace."
+          action={<Button variant="outline" size="sm"><Plus className="h-3.5 w-3.5" />Add member</Button>}>
           <div className="space-y-2">
-            {owners.slice(0, 5).map((o) => (
-              <div key={o.id} className="flex items-center gap-3 rounded-md border border-border p-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--primary)] text-white text-xs font-semibold">{o.initials}</div>
-                <div className="flex-1 text-sm font-medium">{o.name}</div>
-                <span className="text-xs text-muted-foreground">Member</span>
+            {usersWithRoles.map((u) => (
+              <div key={u.id} className="flex items-center gap-3 rounded-md border border-border p-2.5">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--primary)] text-white text-xs font-semibold">{u.initials}</div>
+                <div className="flex-1 text-sm font-medium">{u.name}</div>
+                <StatusBadge variant={roleColors[u.role] ?? "muted"}>{u.role}</StatusBadge>
               </div>
             ))}
           </div>
         </Section>
 
-        <Section title="Scoring configuration">
-          <Row label="Control implementation weight" value="70%" />
-          <Row label="Evidence confidence weight" value="30%" />
-          <Row label="Critical failure override" value={<span className="text-[var(--success)] font-medium">Enabled</span>} />
+        {/* Scoring */}
+        <Section icon={Calculator} title="Scoring engine" description="How readiness, risk, and vendor scores are calculated.">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <div className="flex justify-between text-sm mb-2"><Label>Control implementation weight</Label><span className="font-semibold tabular-nums">{implWeight}%</span></div>
+              <Slider value={[implWeight]} onValueChange={(v) => setImplWeight(v[0])} max={100} step={5} />
+              <div className="text-xs text-muted-foreground mt-1">Evidence confidence weight: {100 - implWeight}%</div>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between rounded-md border border-border px-3 py-2">
+                <span className="text-sm">Critical failure override</span><Switch defaultChecked />
+              </div>
+              <RowLabeled label="Risk scoring model" value="Impact × Likelihood" />
+              <RowLabeled label="Vendor scoring model" value="Sensitivity + Access + Criticality + Maturity" />
+            </div>
+          </div>
         </Section>
 
-        <Section title="Vendor risk settings">
-          <Row label="Data sensitivity" value="High" />
-          <Row label="Access level" value="Production" />
-          <Row label="Business criticality" value="Tier 1" />
-          <Row label="Evidence status" value="Verified" />
-          <Row label="Review status" value="Annual" />
+        {/* Vendor rules */}
+        <Section icon={Shield} title="Vendor risk rules" description="Defaults applied when onboarding a new vendor.">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <SelectField label="Data sensitivity default" defaultValue="High" options={["Low", "Medium", "High", "Critical"]} />
+            <SelectField label="Access level default" defaultValue="Production" options={["None", "Read-only", "Production", "Privileged"]} />
+            <SelectField label="Review frequency" defaultValue="Annual" options={["Quarterly", "Bi-annual", "Annual"]} />
+            <Field label="High-risk vendor threshold (score)" defaultValue="70" />
+            <div className="flex items-center justify-between rounded-md border border-border px-3 py-2 md:col-span-2">
+              <div>
+                <div className="text-sm font-medium">Data Processing Agreement required</div>
+                <div className="text-xs text-muted-foreground">Block vendor activation until DPA is signed.</div>
+              </div>
+              <Switch defaultChecked />
+            </div>
+          </div>
         </Section>
 
-        <Section title="Notification preferences">
-          <ToggleRow label="Email weekly digest" defaultChecked />
-          <ToggleRow label="Critical alert push" defaultChecked />
-          <ToggleRow label="Slack notifications" />
-          <ToggleRow label="Vendor review reminders" defaultChecked />
+        {/* Notifications */}
+        <Section icon={Bell} title="Notification preferences" description="When and how Averonix sends alerts.">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <ToggleRow label="Email weekly digest" defaultChecked />
+            <ToggleRow label="Critical alert push" defaultChecked />
+            <ToggleRow label="Vendor review reminders" defaultChecked />
+            <ToggleRow label="Gap due-date reminders" defaultChecked />
+            <ToggleRow label="Slack notifications" />
+            <ToggleRow label="In-app banners" defaultChecked />
+          </div>
         </Section>
 
-        <Section title="Appearance">
-          <div className="rounded-lg border border-border p-4">
-            <div className="text-sm font-medium">Theme</div>
-            <div className="text-xs text-muted-foreground mt-1">Averonix Purple</div>
-            <div className="mt-3 flex items-center gap-2">
-              <div className="h-6 w-6 rounded-full" style={{ backgroundColor: "#C560CC" }} />
-              <code className="text-xs font-mono">#C560CC</code>
+        {/* Appearance */}
+        <Section icon={Palette} title="Appearance" description="Brand theme and layout density.">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="rounded-lg border border-border p-4">
+              <div className="text-xs text-muted-foreground uppercase">Theme</div>
+              <div className="mt-2 text-sm font-medium">Averonix Purple</div>
+              <div className="mt-3 flex items-center gap-2">
+                <div className="h-7 w-7 rounded-full border border-border" style={{ backgroundColor: "#C560CC" }} />
+                <code className="text-xs font-mono">#C560CC</code>
+              </div>
+            </div>
+            <div className="rounded-lg border border-border p-4">
+              <div className="text-xs text-muted-foreground uppercase mb-2">Density</div>
+              <Select value={density} onValueChange={setDensity}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="comfortable">Comfortable</SelectItem>
+                  <SelectItem value="compact">Compact</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="rounded-lg border border-border p-4">
+              <div className="text-xs text-muted-foreground uppercase mb-2">Sidebar mode</div>
+              <Select value={sidebarMode} onValueChange={setSidebarMode}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="expanded">Expanded</SelectItem>
+                  <SelectItem value="compact">Compact</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </Section>
@@ -71,16 +153,38 @@ function SettingsPage() {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ icon: Icon, title, description, children, action }: { icon: any; title: string; description?: string; children: React.ReactNode; action?: React.ReactNode }) {
   return (
     <Card className="border-border">
-      <CardHeader><CardTitle className="text-sm">{title}</CardTitle></CardHeader>
-      <CardContent className="space-y-3">{children}</CardContent>
+      <CardHeader className="flex flex-row items-start justify-between gap-3 space-y-0 pb-4">
+        <div className="flex items-start gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--primary-soft)] text-[var(--primary-dark)]"><Icon className="h-4 w-4" /></div>
+          <div>
+            <CardTitle className="text-sm">{title}</CardTitle>
+            {description && <p className="text-xs text-muted-foreground mt-0.5">{description}</p>}
+          </div>
+        </div>
+        {action}
+      </CardHeader>
+      <CardContent>{children}</CardContent>
     </Card>
   );
 }
 function Field({ label, defaultValue }: { label: string; defaultValue: string }) {
   return <div><Label className="text-xs text-muted-foreground">{label}</Label><Input defaultValue={defaultValue} className="mt-1" /></div>;
 }
-function Row({ label, value }: any) { return <div className="flex justify-between text-sm"><span className="text-muted-foreground">{label}</span><span className="font-medium">{value}</span></div>; }
-function ToggleRow({ label, defaultChecked }: any) { return <div className="flex items-center justify-between"><span className="text-sm">{label}</span><Switch defaultChecked={defaultChecked} /></div>; }
+function SelectField({ label, defaultValue, options }: { label: string; defaultValue: string; options: string[] }) {
+  return <div><Label className="text-xs text-muted-foreground">{label}</Label>
+    <Select defaultValue={defaultValue}><SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+      <SelectContent>{options.map((o) => <SelectItem key={o} value={o}>{o}</SelectItem>)}</SelectContent>
+    </Select></div>;
+}
+function ToggleRow({ label, defaultChecked }: { label: string; defaultChecked?: boolean }) {
+  return <div className="flex items-center justify-between rounded-md border border-border px-3 py-2.5"><span className="text-sm">{label}</span><Switch defaultChecked={defaultChecked} /></div>;
+}
+function RowLabeled({ label, value }: { label: string; value: string }) {
+  return <div className="rounded-md border border-border px-3 py-2">
+    <div className="text-xs text-muted-foreground">{label}</div>
+    <div className="text-sm font-medium mt-0.5">{value}</div>
+  </div>;
+}
