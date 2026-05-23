@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VendorsIndexRouteImport } from './routes/vendors.index'
+import { Route as TasksIndexRouteImport } from './routes/tasks.index'
+import { Route as RisksIndexRouteImport } from './routes/risks.index'
+import { Route as GapsIndexRouteImport } from './routes/gaps.index'
 import { Route as FrameworksIndexRouteImport } from './routes/frameworks.index'
 import { Route as ControlsIndexRouteImport } from './routes/controls.index'
 import { Route as VendorsReviewsRouteImport } from './routes/vendors.reviews'
@@ -25,6 +28,21 @@ const IndexRoute = IndexRouteImport.update({
 const VendorsIndexRoute = VendorsIndexRouteImport.update({
   id: '/vendors/',
   path: '/vendors/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasksIndexRoute = TasksIndexRouteImport.update({
+  id: '/tasks/',
+  path: '/tasks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RisksIndexRoute = RisksIndexRouteImport.update({
+  id: '/risks/',
+  path: '/risks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GapsIndexRoute = GapsIndexRouteImport.update({
+  id: '/gaps/',
+  path: '/gaps/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FrameworksIndexRoute = FrameworksIndexRouteImport.update({
@@ -60,6 +78,9 @@ export interface FileRoutesByFullPath {
   '/vendors/reviews': typeof VendorsReviewsRoute
   '/controls/': typeof ControlsIndexRoute
   '/frameworks/': typeof FrameworksIndexRoute
+  '/gaps/': typeof GapsIndexRoute
+  '/risks/': typeof RisksIndexRoute
+  '/tasks/': typeof TasksIndexRoute
   '/vendors/': typeof VendorsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +90,9 @@ export interface FileRoutesByTo {
   '/vendors/reviews': typeof VendorsReviewsRoute
   '/controls': typeof ControlsIndexRoute
   '/frameworks': typeof FrameworksIndexRoute
+  '/gaps': typeof GapsIndexRoute
+  '/risks': typeof RisksIndexRoute
+  '/tasks': typeof TasksIndexRoute
   '/vendors': typeof VendorsIndexRoute
 }
 export interface FileRoutesById {
@@ -79,6 +103,9 @@ export interface FileRoutesById {
   '/vendors/reviews': typeof VendorsReviewsRoute
   '/controls/': typeof ControlsIndexRoute
   '/frameworks/': typeof FrameworksIndexRoute
+  '/gaps/': typeof GapsIndexRoute
+  '/risks/': typeof RisksIndexRoute
+  '/tasks/': typeof TasksIndexRoute
   '/vendors/': typeof VendorsIndexRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +117,9 @@ export interface FileRouteTypes {
     | '/vendors/reviews'
     | '/controls/'
     | '/frameworks/'
+    | '/gaps/'
+    | '/risks/'
+    | '/tasks/'
     | '/vendors/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +129,9 @@ export interface FileRouteTypes {
     | '/vendors/reviews'
     | '/controls'
     | '/frameworks'
+    | '/gaps'
+    | '/risks'
+    | '/tasks'
     | '/vendors'
   id:
     | '__root__'
@@ -108,6 +141,9 @@ export interface FileRouteTypes {
     | '/vendors/reviews'
     | '/controls/'
     | '/frameworks/'
+    | '/gaps/'
+    | '/risks/'
+    | '/tasks/'
     | '/vendors/'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +154,9 @@ export interface RootRouteChildren {
   VendorsReviewsRoute: typeof VendorsReviewsRoute
   ControlsIndexRoute: typeof ControlsIndexRoute
   FrameworksIndexRoute: typeof FrameworksIndexRoute
+  GapsIndexRoute: typeof GapsIndexRoute
+  RisksIndexRoute: typeof RisksIndexRoute
+  TasksIndexRoute: typeof TasksIndexRoute
   VendorsIndexRoute: typeof VendorsIndexRoute
 }
 
@@ -135,6 +174,27 @@ declare module '@tanstack/react-router' {
       path: '/vendors'
       fullPath: '/vendors/'
       preLoaderRoute: typeof VendorsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasks/': {
+      id: '/tasks/'
+      path: '/tasks'
+      fullPath: '/tasks/'
+      preLoaderRoute: typeof TasksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/risks/': {
+      id: '/risks/'
+      path: '/risks'
+      fullPath: '/risks/'
+      preLoaderRoute: typeof RisksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gaps/': {
+      id: '/gaps/'
+      path: '/gaps'
+      fullPath: '/gaps/'
+      preLoaderRoute: typeof GapsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/frameworks/': {
@@ -182,6 +242,9 @@ const rootRouteChildren: RootRouteChildren = {
   VendorsReviewsRoute: VendorsReviewsRoute,
   ControlsIndexRoute: ControlsIndexRoute,
   FrameworksIndexRoute: FrameworksIndexRoute,
+  GapsIndexRoute: GapsIndexRoute,
+  RisksIndexRoute: RisksIndexRoute,
+  TasksIndexRoute: TasksIndexRoute,
   VendorsIndexRoute: VendorsIndexRoute,
 }
 export const routeTree = rootRouteImport
