@@ -10,12 +10,21 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as VendorsIndexRouteImport } from './routes/vendors.index'
 import { Route as FrameworksIndexRouteImport } from './routes/frameworks.index'
 import { Route as ControlsIndexRouteImport } from './routes/controls.index'
+import { Route as VendorsReviewsRouteImport } from './routes/vendors.reviews'
+import { Route as VendorsDiscoveryRouteImport } from './routes/vendors.discovery'
+import { Route as VendorsAllRouteImport } from './routes/vendors.all'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorsIndexRoute = VendorsIndexRouteImport.update({
+  id: '/vendors/',
+  path: '/vendors/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FrameworksIndexRoute = FrameworksIndexRouteImport.update({
@@ -28,35 +37,88 @@ const ControlsIndexRoute = ControlsIndexRouteImport.update({
   path: '/controls/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VendorsReviewsRoute = VendorsReviewsRouteImport.update({
+  id: '/vendors/reviews',
+  path: '/vendors/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorsDiscoveryRoute = VendorsDiscoveryRouteImport.update({
+  id: '/vendors/discovery',
+  path: '/vendors/discovery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorsAllRoute = VendorsAllRouteImport.update({
+  id: '/vendors/all',
+  path: '/vendors/all',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/vendors/all': typeof VendorsAllRoute
+  '/vendors/discovery': typeof VendorsDiscoveryRoute
+  '/vendors/reviews': typeof VendorsReviewsRoute
   '/controls/': typeof ControlsIndexRoute
   '/frameworks/': typeof FrameworksIndexRoute
+  '/vendors/': typeof VendorsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/vendors/all': typeof VendorsAllRoute
+  '/vendors/discovery': typeof VendorsDiscoveryRoute
+  '/vendors/reviews': typeof VendorsReviewsRoute
   '/controls': typeof ControlsIndexRoute
   '/frameworks': typeof FrameworksIndexRoute
+  '/vendors': typeof VendorsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/vendors/all': typeof VendorsAllRoute
+  '/vendors/discovery': typeof VendorsDiscoveryRoute
+  '/vendors/reviews': typeof VendorsReviewsRoute
   '/controls/': typeof ControlsIndexRoute
   '/frameworks/': typeof FrameworksIndexRoute
+  '/vendors/': typeof VendorsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/controls/' | '/frameworks/'
+  fullPaths:
+    | '/'
+    | '/vendors/all'
+    | '/vendors/discovery'
+    | '/vendors/reviews'
+    | '/controls/'
+    | '/frameworks/'
+    | '/vendors/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/controls' | '/frameworks'
-  id: '__root__' | '/' | '/controls/' | '/frameworks/'
+  to:
+    | '/'
+    | '/vendors/all'
+    | '/vendors/discovery'
+    | '/vendors/reviews'
+    | '/controls'
+    | '/frameworks'
+    | '/vendors'
+  id:
+    | '__root__'
+    | '/'
+    | '/vendors/all'
+    | '/vendors/discovery'
+    | '/vendors/reviews'
+    | '/controls/'
+    | '/frameworks/'
+    | '/vendors/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  VendorsAllRoute: typeof VendorsAllRoute
+  VendorsDiscoveryRoute: typeof VendorsDiscoveryRoute
+  VendorsReviewsRoute: typeof VendorsReviewsRoute
   ControlsIndexRoute: typeof ControlsIndexRoute
   FrameworksIndexRoute: typeof FrameworksIndexRoute
+  VendorsIndexRoute: typeof VendorsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vendors/': {
+      id: '/vendors/'
+      path: '/vendors'
+      fullPath: '/vendors/'
+      preLoaderRoute: typeof VendorsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/frameworks/': {
@@ -82,13 +151,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControlsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vendors/reviews': {
+      id: '/vendors/reviews'
+      path: '/vendors/reviews'
+      fullPath: '/vendors/reviews'
+      preLoaderRoute: typeof VendorsReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vendors/discovery': {
+      id: '/vendors/discovery'
+      path: '/vendors/discovery'
+      fullPath: '/vendors/discovery'
+      preLoaderRoute: typeof VendorsDiscoveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vendors/all': {
+      id: '/vendors/all'
+      path: '/vendors/all'
+      fullPath: '/vendors/all'
+      preLoaderRoute: typeof VendorsAllRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  VendorsAllRoute: VendorsAllRoute,
+  VendorsDiscoveryRoute: VendorsDiscoveryRoute,
+  VendorsReviewsRoute: VendorsReviewsRoute,
   ControlsIndexRoute: ControlsIndexRoute,
   FrameworksIndexRoute: FrameworksIndexRoute,
+  VendorsIndexRoute: VendorsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
