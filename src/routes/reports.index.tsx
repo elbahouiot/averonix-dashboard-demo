@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge, statusVariant } from "@/components/averonix/StatusBadge";
 import { ActivityTimeline } from "@/components/averonix/ActivityTimeline";
 import { reports } from "@/mocks/data";
-import { FileDown, RefreshCw, FileText, ChevronRight, Plus } from "lucide-react";
+import { scheduledReports } from "@/mocks/extras";
+import { FileDown, RefreshCw, FileText, ChevronRight, Plus, CalendarClock, Users } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/reports/")({
