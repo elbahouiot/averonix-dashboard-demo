@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestsRouteImport } from './routes/tests'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as RequestDemoRouteImport } from './routes/request-demo'
 import { Route as PoliciesRouteImport } from './routes/policies'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
@@ -42,6 +43,11 @@ const TestsRoute = TestsRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RequestDemoRoute = RequestDemoRouteImport.update({
+  id: '/request-demo',
+  path: '/request-demo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PoliciesRoute = PoliciesRouteImport.update({
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/policies': typeof PoliciesRoute
+  '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
   '/tests': typeof TestsRoute
   '/controls/$id': typeof ControlsIdRoute
@@ -185,6 +192,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/policies': typeof PoliciesRoute
+  '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
   '/tests': typeof TestsRoute
   '/controls/$id': typeof ControlsIdRoute
@@ -212,6 +220,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/policies': typeof PoliciesRoute
+  '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
   '/tests': typeof TestsRoute
   '/controls/$id': typeof ControlsIdRoute
@@ -240,6 +249,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/policies'
+    | '/request-demo'
     | '/settings'
     | '/tests'
     | '/controls/$id'
@@ -266,6 +276,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/policies'
+    | '/request-demo'
     | '/settings'
     | '/tests'
     | '/controls/$id'
@@ -292,6 +303,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/policies'
+    | '/request-demo'
     | '/settings'
     | '/tests'
     | '/controls/$id'
@@ -319,6 +331,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   PoliciesRoute: typeof PoliciesRoute
+  RequestDemoRoute: typeof RequestDemoRoute
   SettingsRoute: typeof SettingsRoute
   TestsRoute: typeof TestsRoute
   ControlsIdRoute: typeof ControlsIdRoute
@@ -356,6 +369,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/request-demo': {
+      id: '/request-demo'
+      path: '/request-demo'
+      fullPath: '/request-demo'
+      preLoaderRoute: typeof RequestDemoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/policies': {
@@ -519,6 +539,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   PoliciesRoute: PoliciesRoute,
+  RequestDemoRoute: RequestDemoRoute,
   SettingsRoute: SettingsRoute,
   TestsRoute: TestsRoute,
   ControlsIdRoute: ControlsIdRoute,
