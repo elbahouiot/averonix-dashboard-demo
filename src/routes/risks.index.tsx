@@ -77,8 +77,8 @@ function RisksPage() {
                     ))}
                     {/* rows from severe→insignificant (top→bottom) */}
                     {[4, 3, 2, 1, 0].map((i) => (
-                      <>
-                        <div key={`lbl-${i}`} className="text-[10px] text-right text-muted-foreground uppercase tracking-wide self-center pr-1">{impactLabels[i]}</div>
+                      <Fragment key={`row-${i}`}>
+                        <div className="text-[10px] text-right text-muted-foreground uppercase tracking-wide self-center pr-1">{impactLabels[i]}</div>
                         {[0, 1, 2, 3, 4].map((l) => {
                           const v = riskMatrix[i][l];
                           const active = hover && hover.i === i && hover.l === l;
@@ -91,7 +91,7 @@ function RisksPage() {
                             </button>
                           );
                         })}
-                      </>
+                      </Fragment>
                     ))}
                   </div>
                   <div className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground text-center">Likelihood →</div>
