@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
-  Outlet, Link, createRootRouteWithContext, useRouter, HeadContent, Scripts,
+  Outlet, Link, createRootRouteWithContext, useRouter, useRouterState, HeadContent, Scripts,
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
@@ -71,17 +71,26 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isAuthRoute = ["/login", "/request-demo", "/demo-ready", "/onboarding"].some(
+    (p) => pathname === p || pathname.startsWith(p + "/"),
+  );
+
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex h-screen w-full overflow-hidden bg-background">
-        <Sidebar />
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <TopHeader />
-          <main className="flex-1 overflow-y-auto">
-            <Outlet />
-          </main>
+      {isAuthRoute ? (
+        <Outlet />
+      ) : (
+        <div className="flex h-screen w-full overflow-hidden bg-background">
+          <Sidebar />
+          <div className="flex flex-1 flex-col overflow-hidden">
+            <TopHeader />
+            <main className="flex-1 overflow-y-auto">
+              <Outlet />
+            </main>
+          </div>
         </div>
-      </div>
+      )}
       <Toaster position="top-right" />
     </QueryClientProvider>
   );

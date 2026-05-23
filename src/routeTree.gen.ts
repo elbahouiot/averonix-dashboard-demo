@@ -11,7 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestsRouteImport } from './routes/tests'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as RequestDemoRouteImport } from './routes/request-demo'
 import { Route as PoliciesRouteImport } from './routes/policies'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as DemoReadyRouteImport } from './routes/demo-ready'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VendorsIndexRouteImport } from './routes/vendors.index'
 import { Route as TasksIndexRouteImport } from './routes/tasks.index'
@@ -43,9 +47,29 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RequestDemoRoute = RequestDemoRouteImport.update({
+  id: '/request-demo',
+  path: '/request-demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PoliciesRoute = PoliciesRouteImport.update({
   id: '/policies',
   path: '/policies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoReadyRoute = DemoReadyRouteImport.update({
+  id: '/demo-ready',
+  path: '/demo-ready',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -151,7 +175,11 @@ const ControlsIdRoute = ControlsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/demo-ready': typeof DemoReadyRoute
+  '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
   '/policies': typeof PoliciesRoute
+  '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
   '/tests': typeof TestsRoute
   '/controls/$id': typeof ControlsIdRoute
@@ -176,7 +204,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/demo-ready': typeof DemoReadyRoute
+  '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
   '/policies': typeof PoliciesRoute
+  '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
   '/tests': typeof TestsRoute
   '/controls/$id': typeof ControlsIdRoute
@@ -202,7 +234,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/demo-ready': typeof DemoReadyRoute
+  '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
   '/policies': typeof PoliciesRoute
+  '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
   '/tests': typeof TestsRoute
   '/controls/$id': typeof ControlsIdRoute
@@ -229,7 +265,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/demo-ready'
+    | '/login'
+    | '/onboarding'
     | '/policies'
+    | '/request-demo'
     | '/settings'
     | '/tests'
     | '/controls/$id'
@@ -254,7 +294,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/demo-ready'
+    | '/login'
+    | '/onboarding'
     | '/policies'
+    | '/request-demo'
     | '/settings'
     | '/tests'
     | '/controls/$id'
@@ -279,7 +323,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/demo-ready'
+    | '/login'
+    | '/onboarding'
     | '/policies'
+    | '/request-demo'
     | '/settings'
     | '/tests'
     | '/controls/$id'
@@ -305,7 +353,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DemoReadyRoute: typeof DemoReadyRoute
+  LoginRoute: typeof LoginRoute
+  OnboardingRoute: typeof OnboardingRoute
   PoliciesRoute: typeof PoliciesRoute
+  RequestDemoRoute: typeof RequestDemoRoute
   SettingsRoute: typeof SettingsRoute
   TestsRoute: typeof TestsRoute
   ControlsIdRoute: typeof ControlsIdRoute
@@ -345,11 +397,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/request-demo': {
+      id: '/request-demo'
+      path: '/request-demo'
+      fullPath: '/request-demo'
+      preLoaderRoute: typeof RequestDemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/policies': {
       id: '/policies'
       path: '/policies'
       fullPath: '/policies'
       preLoaderRoute: typeof PoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo-ready': {
+      id: '/demo-ready'
+      path: '/demo-ready'
+      fullPath: '/demo-ready'
+      preLoaderRoute: typeof DemoReadyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -497,7 +577,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DemoReadyRoute: DemoReadyRoute,
+  LoginRoute: LoginRoute,
+  OnboardingRoute: OnboardingRoute,
   PoliciesRoute: PoliciesRoute,
+  RequestDemoRoute: RequestDemoRoute,
   SettingsRoute: SettingsRoute,
   TestsRoute: TestsRoute,
   ControlsIdRoute: ControlsIdRoute,
