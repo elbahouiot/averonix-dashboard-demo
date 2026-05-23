@@ -62,6 +62,15 @@ function ControlDetail() {
 }
 
 function Row({ label, value }: any) { return <div><div className="text-xs text-muted-foreground uppercase">{label}</div><div className="mt-0.5">{value}</div></div>; }
-function LinkedList({ title, items }: { title: string; items: { id: string; label: string; to: any; severity: string }[] }) {
-  return <Card className="border-border"><CardContent className="p-5"><h4 className="text-sm font-semibold mb-3">{title}</h4><ul className="space-y-2">{items.map((i) => (<li key={i.id}><Link to={i.to} params={{ id: i.id }} className="flex items-center gap-2 rounded-md border border-border p-2.5 hover:border-[var(--primary)] text-sm"><StatusBadge variant={severityVariant(i.severity)}>{i.severity}</StatusBadge><span className="flex-1 truncate">{i.label}</span></Link></li>))}</ul></CardContent></Card>;
+type LinkKind = "/gaps/$id" | "/risks/$id" | "/tasks/$id";
+function LinkedList({ title, items }: { title: string; items: { id: string; label: string; to: LinkKind; severity: string }[] }) {
+  return <Card className="border-border"><CardContent className="p-5"><h4 className="text-sm font-semibold mb-3">{title}</h4><ul className="space-y-2">{items.map((i) => {
+    const inner = <><StatusBadge variant={severityVariant(i.severity)}>{i.severity}</StatusBadge><span className="flex-1 truncate">{i.label}</span></>;
+    const cls = "flex items-center gap-2 rounded-md border border-border p-2.5 hover:border-[var(--primary)] text-sm";
+    return <li key={i.id}>
+      {i.to === "/gaps/$id" && <Link to="/gaps/$id" params={{ id: i.id }} className={cls}>{inner}</Link>}
+      {i.to === "/risks/$id" && <Link to="/risks/$id" params={{ id: i.id }} className={cls}>{inner}</Link>}
+      {i.to === "/tasks/$id" && <Link to="/tasks/$id" params={{ id: i.id }} className={cls}>{inner}</Link>}
+    </li>;
+  })}</ul></CardContent></Card>;
 }

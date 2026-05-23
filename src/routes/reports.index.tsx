@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge, statusVariant } from "@/components/averonix/StatusBadge";
 import { ActivityTimeline } from "@/components/averonix/ActivityTimeline";
 import { reports } from "@/mocks/data";
-import { FileDown, RefreshCw, FileText, ChevronRight, Plus } from "lucide-react";
+import { scheduledReports } from "@/mocks/extras";
+import { FileDown, RefreshCw, FileText, ChevronRight, Plus, CalendarClock, Users } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/reports/")({
@@ -83,14 +84,31 @@ function ReportsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-border">
-            <CardHeader><CardTitle className="text-sm">Recent exports</CardTitle></CardHeader>
-            <CardContent><ActivityTimeline items={[
-              { id: "1", text: "Executive Summary exported", time: "1h ago" },
-              { id: "2", text: "Vendor Risk Summary generated", time: "Yesterday" },
-              { id: "3", text: "Gap Report downloaded", time: "3d ago" },
-            ]} /></CardContent>
-          </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <Card className="border-border">
+              <CardHeader><CardTitle className="text-sm">Recent exports</CardTitle></CardHeader>
+              <CardContent><ActivityTimeline items={[
+                { id: "1", text: "Executive Summary exported", time: "1h ago" },
+                { id: "2", text: "Vendor Risk Summary generated", time: "Yesterday" },
+                { id: "3", text: "Gap Report downloaded", time: "3d ago" },
+              ]} /></CardContent>
+            </Card>
+            <Card className="border-border">
+              <CardHeader><CardTitle className="text-sm flex items-center gap-2"><CalendarClock className="h-4 w-4 text-[var(--primary)]" />Scheduled reports</CardTitle></CardHeader>
+              <CardContent className="space-y-2.5">
+                {scheduledReports.map((s) => (
+                  <div key={s.id} className="rounded-md border border-border p-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="text-sm font-medium">{s.name}</div>
+                      <span className="text-[10px] text-muted-foreground flex items-center gap-1"><Users className="h-3 w-3" />{s.recipients}</span>
+                    </div>
+                    <div className="mt-1 text-xs text-muted-foreground">{s.cadence}</div>
+                    <div className="mt-1 text-[11px] text-[var(--primary-dark)]">Next: {s.next}</div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </>
