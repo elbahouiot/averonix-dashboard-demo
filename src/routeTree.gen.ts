@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FrameworksIndexRouteImport } from './routes/frameworks.index'
+import { Route as ControlsIndexRouteImport } from './routes/controls.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const FrameworksIndexRoute = FrameworksIndexRouteImport.update({
   path: '/frameworks/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ControlsIndexRoute = ControlsIndexRouteImport.update({
+  id: '/controls/',
+  path: '/controls/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/controls/': typeof ControlsIndexRoute
   '/frameworks/': typeof FrameworksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/controls': typeof ControlsIndexRoute
   '/frameworks': typeof FrameworksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/controls/': typeof ControlsIndexRoute
   '/frameworks/': typeof FrameworksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/frameworks/'
+  fullPaths: '/' | '/controls/' | '/frameworks/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/frameworks'
-  id: '__root__' | '/' | '/frameworks/'
+  to: '/' | '/controls' | '/frameworks'
+  id: '__root__' | '/' | '/controls/' | '/frameworks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ControlsIndexRoute: typeof ControlsIndexRoute
   FrameworksIndexRoute: typeof FrameworksIndexRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FrameworksIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/controls/': {
+      id: '/controls/'
+      path: '/controls'
+      fullPath: '/controls/'
+      preLoaderRoute: typeof ControlsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ControlsIndexRoute: ControlsIndexRoute,
   FrameworksIndexRoute: FrameworksIndexRoute,
 }
 export const routeTree = rootRouteImport
