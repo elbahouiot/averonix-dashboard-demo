@@ -9,38 +9,349 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TestsRouteImport } from './routes/tests'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as PoliciesRouteImport } from './routes/policies'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as VendorsIndexRouteImport } from './routes/vendors.index'
+import { Route as TasksIndexRouteImport } from './routes/tasks.index'
+import { Route as RisksIndexRouteImport } from './routes/risks.index'
+import { Route as ReportsIndexRouteImport } from './routes/reports.index'
+import { Route as IntegrationsIndexRouteImport } from './routes/integrations.index'
+import { Route as GapsIndexRouteImport } from './routes/gaps.index'
+import { Route as FrameworksIndexRouteImport } from './routes/frameworks.index'
+import { Route as ControlsIndexRouteImport } from './routes/controls.index'
+import { Route as VendorsReviewsRouteImport } from './routes/vendors.reviews'
+import { Route as VendorsDiscoveryRouteImport } from './routes/vendors.discovery'
+import { Route as VendorsAllRouteImport } from './routes/vendors.all'
+import { Route as VendorsIdRouteImport } from './routes/vendors.$id'
+import { Route as TasksIdRouteImport } from './routes/tasks.$id'
+import { Route as RisksIdRouteImport } from './routes/risks.$id'
+import { Route as ReportsIdRouteImport } from './routes/reports.$id'
+import { Route as IntegrationsIdRouteImport } from './routes/integrations.$id'
+import { Route as GapsIdRouteImport } from './routes/gaps.$id'
+import { Route as FrameworksIdRouteImport } from './routes/frameworks.$id'
+import { Route as ControlsIdRouteImport } from './routes/controls.$id'
 
+const TestsRoute = TestsRouteImport.update({
+  id: '/tests',
+  path: '/tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliciesRoute = PoliciesRouteImport.update({
+  id: '/policies',
+  path: '/policies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VendorsIndexRoute = VendorsIndexRouteImport.update({
+  id: '/vendors/',
+  path: '/vendors/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasksIndexRoute = TasksIndexRouteImport.update({
+  id: '/tasks/',
+  path: '/tasks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RisksIndexRoute = RisksIndexRouteImport.update({
+  id: '/risks/',
+  path: '/risks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsIndexRoute = ReportsIndexRouteImport.update({
+  id: '/reports/',
+  path: '/reports/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegrationsIndexRoute = IntegrationsIndexRouteImport.update({
+  id: '/integrations/',
+  path: '/integrations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GapsIndexRoute = GapsIndexRouteImport.update({
+  id: '/gaps/',
+  path: '/gaps/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FrameworksIndexRoute = FrameworksIndexRouteImport.update({
+  id: '/frameworks/',
+  path: '/frameworks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ControlsIndexRoute = ControlsIndexRouteImport.update({
+  id: '/controls/',
+  path: '/controls/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorsReviewsRoute = VendorsReviewsRouteImport.update({
+  id: '/vendors/reviews',
+  path: '/vendors/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorsDiscoveryRoute = VendorsDiscoveryRouteImport.update({
+  id: '/vendors/discovery',
+  path: '/vendors/discovery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorsAllRoute = VendorsAllRouteImport.update({
+  id: '/vendors/all',
+  path: '/vendors/all',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorsIdRoute = VendorsIdRouteImport.update({
+  id: '/vendors/$id',
+  path: '/vendors/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasksIdRoute = TasksIdRouteImport.update({
+  id: '/tasks/$id',
+  path: '/tasks/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RisksIdRoute = RisksIdRouteImport.update({
+  id: '/risks/$id',
+  path: '/risks/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsIdRoute = ReportsIdRouteImport.update({
+  id: '/reports/$id',
+  path: '/reports/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegrationsIdRoute = IntegrationsIdRouteImport.update({
+  id: '/integrations/$id',
+  path: '/integrations/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GapsIdRoute = GapsIdRouteImport.update({
+  id: '/gaps/$id',
+  path: '/gaps/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FrameworksIdRoute = FrameworksIdRouteImport.update({
+  id: '/frameworks/$id',
+  path: '/frameworks/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ControlsIdRoute = ControlsIdRouteImport.update({
+  id: '/controls/$id',
+  path: '/controls/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/policies': typeof PoliciesRoute
+  '/settings': typeof SettingsRoute
+  '/tests': typeof TestsRoute
+  '/controls/$id': typeof ControlsIdRoute
+  '/frameworks/$id': typeof FrameworksIdRoute
+  '/gaps/$id': typeof GapsIdRoute
+  '/integrations/$id': typeof IntegrationsIdRoute
+  '/reports/$id': typeof ReportsIdRoute
+  '/risks/$id': typeof RisksIdRoute
+  '/tasks/$id': typeof TasksIdRoute
+  '/vendors/$id': typeof VendorsIdRoute
+  '/vendors/all': typeof VendorsAllRoute
+  '/vendors/discovery': typeof VendorsDiscoveryRoute
+  '/vendors/reviews': typeof VendorsReviewsRoute
+  '/controls/': typeof ControlsIndexRoute
+  '/frameworks/': typeof FrameworksIndexRoute
+  '/gaps/': typeof GapsIndexRoute
+  '/integrations/': typeof IntegrationsIndexRoute
+  '/reports/': typeof ReportsIndexRoute
+  '/risks/': typeof RisksIndexRoute
+  '/tasks/': typeof TasksIndexRoute
+  '/vendors/': typeof VendorsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/policies': typeof PoliciesRoute
+  '/settings': typeof SettingsRoute
+  '/tests': typeof TestsRoute
+  '/controls/$id': typeof ControlsIdRoute
+  '/frameworks/$id': typeof FrameworksIdRoute
+  '/gaps/$id': typeof GapsIdRoute
+  '/integrations/$id': typeof IntegrationsIdRoute
+  '/reports/$id': typeof ReportsIdRoute
+  '/risks/$id': typeof RisksIdRoute
+  '/tasks/$id': typeof TasksIdRoute
+  '/vendors/$id': typeof VendorsIdRoute
+  '/vendors/all': typeof VendorsAllRoute
+  '/vendors/discovery': typeof VendorsDiscoveryRoute
+  '/vendors/reviews': typeof VendorsReviewsRoute
+  '/controls': typeof ControlsIndexRoute
+  '/frameworks': typeof FrameworksIndexRoute
+  '/gaps': typeof GapsIndexRoute
+  '/integrations': typeof IntegrationsIndexRoute
+  '/reports': typeof ReportsIndexRoute
+  '/risks': typeof RisksIndexRoute
+  '/tasks': typeof TasksIndexRoute
+  '/vendors': typeof VendorsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/policies': typeof PoliciesRoute
+  '/settings': typeof SettingsRoute
+  '/tests': typeof TestsRoute
+  '/controls/$id': typeof ControlsIdRoute
+  '/frameworks/$id': typeof FrameworksIdRoute
+  '/gaps/$id': typeof GapsIdRoute
+  '/integrations/$id': typeof IntegrationsIdRoute
+  '/reports/$id': typeof ReportsIdRoute
+  '/risks/$id': typeof RisksIdRoute
+  '/tasks/$id': typeof TasksIdRoute
+  '/vendors/$id': typeof VendorsIdRoute
+  '/vendors/all': typeof VendorsAllRoute
+  '/vendors/discovery': typeof VendorsDiscoveryRoute
+  '/vendors/reviews': typeof VendorsReviewsRoute
+  '/controls/': typeof ControlsIndexRoute
+  '/frameworks/': typeof FrameworksIndexRoute
+  '/gaps/': typeof GapsIndexRoute
+  '/integrations/': typeof IntegrationsIndexRoute
+  '/reports/': typeof ReportsIndexRoute
+  '/risks/': typeof RisksIndexRoute
+  '/tasks/': typeof TasksIndexRoute
+  '/vendors/': typeof VendorsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/policies'
+    | '/settings'
+    | '/tests'
+    | '/controls/$id'
+    | '/frameworks/$id'
+    | '/gaps/$id'
+    | '/integrations/$id'
+    | '/reports/$id'
+    | '/risks/$id'
+    | '/tasks/$id'
+    | '/vendors/$id'
+    | '/vendors/all'
+    | '/vendors/discovery'
+    | '/vendors/reviews'
+    | '/controls/'
+    | '/frameworks/'
+    | '/gaps/'
+    | '/integrations/'
+    | '/reports/'
+    | '/risks/'
+    | '/tasks/'
+    | '/vendors/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/policies'
+    | '/settings'
+    | '/tests'
+    | '/controls/$id'
+    | '/frameworks/$id'
+    | '/gaps/$id'
+    | '/integrations/$id'
+    | '/reports/$id'
+    | '/risks/$id'
+    | '/tasks/$id'
+    | '/vendors/$id'
+    | '/vendors/all'
+    | '/vendors/discovery'
+    | '/vendors/reviews'
+    | '/controls'
+    | '/frameworks'
+    | '/gaps'
+    | '/integrations'
+    | '/reports'
+    | '/risks'
+    | '/tasks'
+    | '/vendors'
+  id:
+    | '__root__'
+    | '/'
+    | '/policies'
+    | '/settings'
+    | '/tests'
+    | '/controls/$id'
+    | '/frameworks/$id'
+    | '/gaps/$id'
+    | '/integrations/$id'
+    | '/reports/$id'
+    | '/risks/$id'
+    | '/tasks/$id'
+    | '/vendors/$id'
+    | '/vendors/all'
+    | '/vendors/discovery'
+    | '/vendors/reviews'
+    | '/controls/'
+    | '/frameworks/'
+    | '/gaps/'
+    | '/integrations/'
+    | '/reports/'
+    | '/risks/'
+    | '/tasks/'
+    | '/vendors/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PoliciesRoute: typeof PoliciesRoute
+  SettingsRoute: typeof SettingsRoute
+  TestsRoute: typeof TestsRoute
+  ControlsIdRoute: typeof ControlsIdRoute
+  FrameworksIdRoute: typeof FrameworksIdRoute
+  GapsIdRoute: typeof GapsIdRoute
+  IntegrationsIdRoute: typeof IntegrationsIdRoute
+  ReportsIdRoute: typeof ReportsIdRoute
+  RisksIdRoute: typeof RisksIdRoute
+  TasksIdRoute: typeof TasksIdRoute
+  VendorsIdRoute: typeof VendorsIdRoute
+  VendorsAllRoute: typeof VendorsAllRoute
+  VendorsDiscoveryRoute: typeof VendorsDiscoveryRoute
+  VendorsReviewsRoute: typeof VendorsReviewsRoute
+  ControlsIndexRoute: typeof ControlsIndexRoute
+  FrameworksIndexRoute: typeof FrameworksIndexRoute
+  GapsIndexRoute: typeof GapsIndexRoute
+  IntegrationsIndexRoute: typeof IntegrationsIndexRoute
+  ReportsIndexRoute: typeof ReportsIndexRoute
+  RisksIndexRoute: typeof RisksIndexRoute
+  TasksIndexRoute: typeof TasksIndexRoute
+  VendorsIndexRoute: typeof VendorsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tests': {
+      id: '/tests'
+      path: '/tests'
+      fullPath: '/tests'
+      preLoaderRoute: typeof TestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/policies': {
+      id: '/policies'
+      path: '/policies'
+      fullPath: '/policies'
+      preLoaderRoute: typeof PoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +359,167 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vendors/': {
+      id: '/vendors/'
+      path: '/vendors'
+      fullPath: '/vendors/'
+      preLoaderRoute: typeof VendorsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasks/': {
+      id: '/tasks/'
+      path: '/tasks'
+      fullPath: '/tasks/'
+      preLoaderRoute: typeof TasksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/risks/': {
+      id: '/risks/'
+      path: '/risks'
+      fullPath: '/risks/'
+      preLoaderRoute: typeof RisksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports/': {
+      id: '/reports/'
+      path: '/reports'
+      fullPath: '/reports/'
+      preLoaderRoute: typeof ReportsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integrations/': {
+      id: '/integrations/'
+      path: '/integrations'
+      fullPath: '/integrations/'
+      preLoaderRoute: typeof IntegrationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gaps/': {
+      id: '/gaps/'
+      path: '/gaps'
+      fullPath: '/gaps/'
+      preLoaderRoute: typeof GapsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/frameworks/': {
+      id: '/frameworks/'
+      path: '/frameworks'
+      fullPath: '/frameworks/'
+      preLoaderRoute: typeof FrameworksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/controls/': {
+      id: '/controls/'
+      path: '/controls'
+      fullPath: '/controls/'
+      preLoaderRoute: typeof ControlsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vendors/reviews': {
+      id: '/vendors/reviews'
+      path: '/vendors/reviews'
+      fullPath: '/vendors/reviews'
+      preLoaderRoute: typeof VendorsReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vendors/discovery': {
+      id: '/vendors/discovery'
+      path: '/vendors/discovery'
+      fullPath: '/vendors/discovery'
+      preLoaderRoute: typeof VendorsDiscoveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vendors/all': {
+      id: '/vendors/all'
+      path: '/vendors/all'
+      fullPath: '/vendors/all'
+      preLoaderRoute: typeof VendorsAllRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vendors/$id': {
+      id: '/vendors/$id'
+      path: '/vendors/$id'
+      fullPath: '/vendors/$id'
+      preLoaderRoute: typeof VendorsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasks/$id': {
+      id: '/tasks/$id'
+      path: '/tasks/$id'
+      fullPath: '/tasks/$id'
+      preLoaderRoute: typeof TasksIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/risks/$id': {
+      id: '/risks/$id'
+      path: '/risks/$id'
+      fullPath: '/risks/$id'
+      preLoaderRoute: typeof RisksIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports/$id': {
+      id: '/reports/$id'
+      path: '/reports/$id'
+      fullPath: '/reports/$id'
+      preLoaderRoute: typeof ReportsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integrations/$id': {
+      id: '/integrations/$id'
+      path: '/integrations/$id'
+      fullPath: '/integrations/$id'
+      preLoaderRoute: typeof IntegrationsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gaps/$id': {
+      id: '/gaps/$id'
+      path: '/gaps/$id'
+      fullPath: '/gaps/$id'
+      preLoaderRoute: typeof GapsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/frameworks/$id': {
+      id: '/frameworks/$id'
+      path: '/frameworks/$id'
+      fullPath: '/frameworks/$id'
+      preLoaderRoute: typeof FrameworksIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/controls/$id': {
+      id: '/controls/$id'
+      path: '/controls/$id'
+      fullPath: '/controls/$id'
+      preLoaderRoute: typeof ControlsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PoliciesRoute: PoliciesRoute,
+  SettingsRoute: SettingsRoute,
+  TestsRoute: TestsRoute,
+  ControlsIdRoute: ControlsIdRoute,
+  FrameworksIdRoute: FrameworksIdRoute,
+  GapsIdRoute: GapsIdRoute,
+  IntegrationsIdRoute: IntegrationsIdRoute,
+  ReportsIdRoute: ReportsIdRoute,
+  RisksIdRoute: RisksIdRoute,
+  TasksIdRoute: TasksIdRoute,
+  VendorsIdRoute: VendorsIdRoute,
+  VendorsAllRoute: VendorsAllRoute,
+  VendorsDiscoveryRoute: VendorsDiscoveryRoute,
+  VendorsReviewsRoute: VendorsReviewsRoute,
+  ControlsIndexRoute: ControlsIndexRoute,
+  FrameworksIndexRoute: FrameworksIndexRoute,
+  GapsIndexRoute: GapsIndexRoute,
+  IntegrationsIndexRoute: IntegrationsIndexRoute,
+  ReportsIndexRoute: ReportsIndexRoute,
+  RisksIndexRoute: RisksIndexRoute,
+  TasksIndexRoute: TasksIndexRoute,
+  VendorsIndexRoute: VendorsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
