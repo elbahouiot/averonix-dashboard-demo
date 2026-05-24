@@ -61,7 +61,7 @@ function AssessmentDomain() {
   const progress = Math.round((answered / merged.length) * 100);
 
   const update = (id: string, patch: Partial<AnswerState>) =>
-    setAnswers((prev) => ({ ...prev, [id]: { evidence: "missing", ...prev[id], ...patch } }));
+    setAnswers((prev) => ({ ...prev, [id]: { evidence: "missing", ...(prev[id] ?? {}), ...patch } as AnswerState }));
 
   return (
     <>
