@@ -78,7 +78,7 @@ function seedAnswer(q: RawQuestion): { answer?: AnswerValue; evidence: EvidenceV
   else if (ar < 97) answer = "not_implemented";
   else answer = "not_applicable";
 
-  const er = (h >> 7) % 100;
+  const er = mix(h, 3) % 100;
   let evidence: EvidenceValue;
   if (answer === "implemented") {
     evidence = er < 55 ? "verified" : er < 85 ? "uploaded" : "partial";
