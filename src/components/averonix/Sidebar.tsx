@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard, FlaskConical, FileText, Layers, ShieldCheck,
   ScrollText, Building2, AlertTriangle, GitPullRequestArrow, CheckSquare,
-  Plug, Settings, ChevronDown, ShieldHalf,
+  Plug, Settings, ChevronDown, ShieldHalf, ClipboardCheck,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -18,6 +18,7 @@ const groups: NavGroup[] = [
   ]},
   { label: "Compliance", items: [
     { to: "/frameworks", label: "Frameworks", icon: Layers },
+    { to: "/assessments/iso-27001", label: "Assessments", icon: ClipboardCheck },
     { to: "/controls", label: "Controls", icon: ShieldCheck },
     { to: "/policies", label: "Policies", icon: ScrollText },
   ]},

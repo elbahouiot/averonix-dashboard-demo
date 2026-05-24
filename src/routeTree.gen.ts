@@ -36,6 +36,9 @@ import { Route as IntegrationsIdRouteImport } from './routes/integrations.$id'
 import { Route as GapsIdRouteImport } from './routes/gaps.$id'
 import { Route as FrameworksIdRouteImport } from './routes/frameworks.$id'
 import { Route as ControlsIdRouteImport } from './routes/controls.$id'
+import { Route as AssessmentsIso27001RouteImport } from './routes/assessments.iso-27001'
+import { Route as AssessmentsIso27001IndexRouteImport } from './routes/assessments.iso-27001.index'
+import { Route as AssessmentsIso27001DomainIdRouteImport } from './routes/assessments.iso-27001.$domainId'
 
 const TestsRoute = TestsRouteImport.update({
   id: '/tests',
@@ -172,6 +175,23 @@ const ControlsIdRoute = ControlsIdRouteImport.update({
   path: '/controls/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssessmentsIso27001Route = AssessmentsIso27001RouteImport.update({
+  id: '/assessments/iso-27001',
+  path: '/assessments/iso-27001',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssessmentsIso27001IndexRoute =
+  AssessmentsIso27001IndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AssessmentsIso27001Route,
+  } as any)
+const AssessmentsIso27001DomainIdRoute =
+  AssessmentsIso27001DomainIdRouteImport.update({
+    id: '/$domainId',
+    path: '/$domainId',
+    getParentRoute: () => AssessmentsIso27001Route,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -182,6 +202,7 @@ export interface FileRoutesByFullPath {
   '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
   '/tests': typeof TestsRoute
+  '/assessments/iso-27001': typeof AssessmentsIso27001RouteWithChildren
   '/controls/$id': typeof ControlsIdRoute
   '/frameworks/$id': typeof FrameworksIdRoute
   '/gaps/$id': typeof GapsIdRoute
@@ -201,6 +222,8 @@ export interface FileRoutesByFullPath {
   '/risks/': typeof RisksIndexRoute
   '/tasks/': typeof TasksIndexRoute
   '/vendors/': typeof VendorsIndexRoute
+  '/assessments/iso-27001/$domainId': typeof AssessmentsIso27001DomainIdRoute
+  '/assessments/iso-27001/': typeof AssessmentsIso27001IndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -230,6 +253,8 @@ export interface FileRoutesByTo {
   '/risks': typeof RisksIndexRoute
   '/tasks': typeof TasksIndexRoute
   '/vendors': typeof VendorsIndexRoute
+  '/assessments/iso-27001/$domainId': typeof AssessmentsIso27001DomainIdRoute
+  '/assessments/iso-27001': typeof AssessmentsIso27001IndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -241,6 +266,7 @@ export interface FileRoutesById {
   '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
   '/tests': typeof TestsRoute
+  '/assessments/iso-27001': typeof AssessmentsIso27001RouteWithChildren
   '/controls/$id': typeof ControlsIdRoute
   '/frameworks/$id': typeof FrameworksIdRoute
   '/gaps/$id': typeof GapsIdRoute
@@ -260,6 +286,8 @@ export interface FileRoutesById {
   '/risks/': typeof RisksIndexRoute
   '/tasks/': typeof TasksIndexRoute
   '/vendors/': typeof VendorsIndexRoute
+  '/assessments/iso-27001/$domainId': typeof AssessmentsIso27001DomainIdRoute
+  '/assessments/iso-27001/': typeof AssessmentsIso27001IndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -272,6 +300,7 @@ export interface FileRouteTypes {
     | '/request-demo'
     | '/settings'
     | '/tests'
+    | '/assessments/iso-27001'
     | '/controls/$id'
     | '/frameworks/$id'
     | '/gaps/$id'
@@ -291,6 +320,8 @@ export interface FileRouteTypes {
     | '/risks/'
     | '/tasks/'
     | '/vendors/'
+    | '/assessments/iso-27001/$domainId'
+    | '/assessments/iso-27001/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -320,6 +351,8 @@ export interface FileRouteTypes {
     | '/risks'
     | '/tasks'
     | '/vendors'
+    | '/assessments/iso-27001/$domainId'
+    | '/assessments/iso-27001'
   id:
     | '__root__'
     | '/'
@@ -330,6 +363,7 @@ export interface FileRouteTypes {
     | '/request-demo'
     | '/settings'
     | '/tests'
+    | '/assessments/iso-27001'
     | '/controls/$id'
     | '/frameworks/$id'
     | '/gaps/$id'
@@ -349,6 +383,8 @@ export interface FileRouteTypes {
     | '/risks/'
     | '/tasks/'
     | '/vendors/'
+    | '/assessments/iso-27001/$domainId'
+    | '/assessments/iso-27001/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -360,6 +396,7 @@ export interface RootRouteChildren {
   RequestDemoRoute: typeof RequestDemoRoute
   SettingsRoute: typeof SettingsRoute
   TestsRoute: typeof TestsRoute
+  AssessmentsIso27001Route: typeof AssessmentsIso27001RouteWithChildren
   ControlsIdRoute: typeof ControlsIdRoute
   FrameworksIdRoute: typeof FrameworksIdRoute
   GapsIdRoute: typeof GapsIdRoute
@@ -572,8 +609,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControlsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assessments/iso-27001': {
+      id: '/assessments/iso-27001'
+      path: '/assessments/iso-27001'
+      fullPath: '/assessments/iso-27001'
+      preLoaderRoute: typeof AssessmentsIso27001RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assessments/iso-27001/': {
+      id: '/assessments/iso-27001/'
+      path: '/'
+      fullPath: '/assessments/iso-27001/'
+      preLoaderRoute: typeof AssessmentsIso27001IndexRouteImport
+      parentRoute: typeof AssessmentsIso27001Route
+    }
+    '/assessments/iso-27001/$domainId': {
+      id: '/assessments/iso-27001/$domainId'
+      path: '/$domainId'
+      fullPath: '/assessments/iso-27001/$domainId'
+      preLoaderRoute: typeof AssessmentsIso27001DomainIdRouteImport
+      parentRoute: typeof AssessmentsIso27001Route
+    }
   }
 }
+
+interface AssessmentsIso27001RouteChildren {
+  AssessmentsIso27001DomainIdRoute: typeof AssessmentsIso27001DomainIdRoute
+  AssessmentsIso27001IndexRoute: typeof AssessmentsIso27001IndexRoute
+}
+
+const AssessmentsIso27001RouteChildren: AssessmentsIso27001RouteChildren = {
+  AssessmentsIso27001DomainIdRoute: AssessmentsIso27001DomainIdRoute,
+  AssessmentsIso27001IndexRoute: AssessmentsIso27001IndexRoute,
+}
+
+const AssessmentsIso27001RouteWithChildren =
+  AssessmentsIso27001Route._addFileChildren(AssessmentsIso27001RouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -584,6 +655,7 @@ const rootRouteChildren: RootRouteChildren = {
   RequestDemoRoute: RequestDemoRoute,
   SettingsRoute: SettingsRoute,
   TestsRoute: TestsRoute,
+  AssessmentsIso27001Route: AssessmentsIso27001RouteWithChildren,
   ControlsIdRoute: ControlsIdRoute,
   FrameworksIdRoute: FrameworksIdRoute,
   GapsIdRoute: GapsIdRoute,
@@ -607,3 +679,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
