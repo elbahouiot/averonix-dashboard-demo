@@ -19,9 +19,19 @@ const OWNERS = [
 ];
 
 function hash(s: string): number {
-  let h = 0;
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
-  return Math.abs(h);
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return Math.abs(h | 0);
+}
+function mix(h: number, salt: number): number {
+  let x = (h ^ salt) >>> 0;
+  x = Math.imul(x ^ (x >>> 16), 0x85ebca6b);
+  x = Math.imul(x ^ (x >>> 13), 0xc2b2ae35);
+  x ^= x >>> 16;
+  return Math.abs(x | 0);
 }
 
 export function selectQuestions(domain: RawDomain, sector: CompanySector): RawQuestion[] {
