@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard, FlaskConical, FileText, Layers, ShieldCheck,
   ScrollText, Building2, AlertTriangle, GitPullRequestArrow, CheckSquare,
-  Plug, Settings, ChevronDown, ShieldHalf,
+  Plug, Settings, ChevronDown, ShieldHalf, ClipboardCheck,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
