@@ -66,10 +66,10 @@ function deriveTitle(q: RawQuestion): string {
 // these mirror typical compliance posture so the dashboard surfaces meaningful gaps).
 function seedAnswer(q: RawQuestion): { answer?: AnswerValue; evidence: EvidenceValue } {
   const h = hash(q.id);
-  const r = h % 100;
+  const r = mix(h, 1) % 100;
   // 22% unanswered to show realistic progress
   if (r < 22) return { evidence: "missing" };
-  const ar = (h >> 3) % 100;
+  const ar = mix(h, 2) % 100;
   let answer: AnswerValue;
   if (ar < 22) answer = "implemented";
   else if (ar < 47) answer = "mostly_implemented";
