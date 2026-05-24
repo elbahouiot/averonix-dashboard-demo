@@ -18,6 +18,7 @@ const groups: NavGroup[] = [
   ]},
   { label: "Compliance", items: [
     { to: "/frameworks", label: "Frameworks", icon: Layers },
+    { to: "/assessments/iso-27001", label: "Assessments", icon: ClipboardCheck },
     { to: "/controls", label: "Controls", icon: ShieldCheck },
     { to: "/policies", label: "Policies", icon: ScrollText },
   ]},
