@@ -38,6 +38,7 @@ import { Route as FrameworksIdRouteImport } from './routes/frameworks.$id'
 import { Route as ControlsIdRouteImport } from './routes/controls.$id'
 import { Route as AssessmentsIso27001RouteImport } from './routes/assessments.iso-27001'
 import { Route as AssessmentsIso27001IndexRouteImport } from './routes/assessments.iso-27001.index'
+import { Route as AssessmentsIso27001DomainIdRouteImport } from './routes/assessments.iso-27001.$domainId'
 
 const TestsRoute = TestsRouteImport.update({
   id: '/tests',
@@ -185,6 +186,12 @@ const AssessmentsIso27001IndexRoute =
     path: '/',
     getParentRoute: () => AssessmentsIso27001Route,
   } as any)
+const AssessmentsIso27001DomainIdRoute =
+  AssessmentsIso27001DomainIdRouteImport.update({
+    id: '/$domainId',
+    path: '/$domainId',
+    getParentRoute: () => AssessmentsIso27001Route,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -215,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/risks/': typeof RisksIndexRoute
   '/tasks/': typeof TasksIndexRoute
   '/vendors/': typeof VendorsIndexRoute
+  '/assessments/iso-27001/$domainId': typeof AssessmentsIso27001DomainIdRoute
   '/assessments/iso-27001/': typeof AssessmentsIso27001IndexRoute
 }
 export interface FileRoutesByTo {
@@ -245,6 +253,7 @@ export interface FileRoutesByTo {
   '/risks': typeof RisksIndexRoute
   '/tasks': typeof TasksIndexRoute
   '/vendors': typeof VendorsIndexRoute
+  '/assessments/iso-27001/$domainId': typeof AssessmentsIso27001DomainIdRoute
   '/assessments/iso-27001': typeof AssessmentsIso27001IndexRoute
 }
 export interface FileRoutesById {
@@ -277,6 +286,7 @@ export interface FileRoutesById {
   '/risks/': typeof RisksIndexRoute
   '/tasks/': typeof TasksIndexRoute
   '/vendors/': typeof VendorsIndexRoute
+  '/assessments/iso-27001/$domainId': typeof AssessmentsIso27001DomainIdRoute
   '/assessments/iso-27001/': typeof AssessmentsIso27001IndexRoute
 }
 export interface FileRouteTypes {
@@ -310,6 +320,7 @@ export interface FileRouteTypes {
     | '/risks/'
     | '/tasks/'
     | '/vendors/'
+    | '/assessments/iso-27001/$domainId'
     | '/assessments/iso-27001/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -340,6 +351,7 @@ export interface FileRouteTypes {
     | '/risks'
     | '/tasks'
     | '/vendors'
+    | '/assessments/iso-27001/$domainId'
     | '/assessments/iso-27001'
   id:
     | '__root__'
@@ -371,6 +383,7 @@ export interface FileRouteTypes {
     | '/risks/'
     | '/tasks/'
     | '/vendors/'
+    | '/assessments/iso-27001/$domainId'
     | '/assessments/iso-27001/'
   fileRoutesById: FileRoutesById
 }
@@ -610,14 +623,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssessmentsIso27001IndexRouteImport
       parentRoute: typeof AssessmentsIso27001Route
     }
+    '/assessments/iso-27001/$domainId': {
+      id: '/assessments/iso-27001/$domainId'
+      path: '/$domainId'
+      fullPath: '/assessments/iso-27001/$domainId'
+      preLoaderRoute: typeof AssessmentsIso27001DomainIdRouteImport
+      parentRoute: typeof AssessmentsIso27001Route
+    }
   }
 }
 
 interface AssessmentsIso27001RouteChildren {
+  AssessmentsIso27001DomainIdRoute: typeof AssessmentsIso27001DomainIdRoute
   AssessmentsIso27001IndexRoute: typeof AssessmentsIso27001IndexRoute
 }
 
 const AssessmentsIso27001RouteChildren: AssessmentsIso27001RouteChildren = {
+  AssessmentsIso27001DomainIdRoute: AssessmentsIso27001DomainIdRoute,
   AssessmentsIso27001IndexRoute: AssessmentsIso27001IndexRoute,
 }
 
