@@ -72,7 +72,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isAuthRoute = ["/login", "/request-demo", "/demo-ready", "/onboarding"].some(
+  const isAuthRoute = ["/login", "/request-demo", "/demo-ready", "/onboarding", "/marketing"].some(
     (p) => pathname === p || pathname.startsWith(p + "/"),
   );
 
