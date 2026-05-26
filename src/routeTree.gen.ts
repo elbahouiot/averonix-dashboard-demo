@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestsRouteImport } from './routes/tests'
+import { Route as SiteRouteImport } from './routes/site'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as RequestDemoRouteImport } from './routes/request-demo'
 import { Route as PoliciesRouteImport } from './routes/policies'
@@ -17,6 +18,7 @@ import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as MarketingRouteImport } from './routes/marketing'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DemoReadyRouteImport } from './routes/demo-ready'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VendorsIndexRouteImport } from './routes/vendors.index'
 import { Route as TasksIndexRouteImport } from './routes/tasks.index'
@@ -44,6 +46,11 @@ import { Route as AssessmentsIso27001DomainIdRouteImport } from './routes/assess
 const TestsRoute = TestsRouteImport.update({
   id: '/tests',
   path: '/tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteRoute = SiteRouteImport.update({
+  id: '/site',
+  path: '/site',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -79,6 +86,11 @@ const LoginRoute = LoginRouteImport.update({
 const DemoReadyRoute = DemoReadyRouteImport.update({
   id: '/demo-ready',
   path: '/demo-ready',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -201,6 +213,7 @@ const AssessmentsIso27001DomainIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/demo-ready': typeof DemoReadyRoute
   '/login': typeof LoginRoute
   '/marketing': typeof MarketingRoute
@@ -208,6 +221,7 @@ export interface FileRoutesByFullPath {
   '/policies': typeof PoliciesRoute
   '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
+  '/site': typeof SiteRoute
   '/tests': typeof TestsRoute
   '/assessments/iso-27001': typeof AssessmentsIso27001RouteWithChildren
   '/controls/$id': typeof ControlsIdRoute
@@ -234,6 +248,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/demo-ready': typeof DemoReadyRoute
   '/login': typeof LoginRoute
   '/marketing': typeof MarketingRoute
@@ -241,6 +256,7 @@ export interface FileRoutesByTo {
   '/policies': typeof PoliciesRoute
   '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
+  '/site': typeof SiteRoute
   '/tests': typeof TestsRoute
   '/controls/$id': typeof ControlsIdRoute
   '/frameworks/$id': typeof FrameworksIdRoute
@@ -267,6 +283,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/demo-ready': typeof DemoReadyRoute
   '/login': typeof LoginRoute
   '/marketing': typeof MarketingRoute
@@ -274,6 +291,7 @@ export interface FileRoutesById {
   '/policies': typeof PoliciesRoute
   '/request-demo': typeof RequestDemoRoute
   '/settings': typeof SettingsRoute
+  '/site': typeof SiteRoute
   '/tests': typeof TestsRoute
   '/assessments/iso-27001': typeof AssessmentsIso27001RouteWithChildren
   '/controls/$id': typeof ControlsIdRoute
@@ -302,6 +320,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/dashboard'
     | '/demo-ready'
     | '/login'
     | '/marketing'
@@ -309,6 +328,7 @@ export interface FileRouteTypes {
     | '/policies'
     | '/request-demo'
     | '/settings'
+    | '/site'
     | '/tests'
     | '/assessments/iso-27001'
     | '/controls/$id'
@@ -335,6 +355,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/dashboard'
     | '/demo-ready'
     | '/login'
     | '/marketing'
@@ -342,6 +363,7 @@ export interface FileRouteTypes {
     | '/policies'
     | '/request-demo'
     | '/settings'
+    | '/site'
     | '/tests'
     | '/controls/$id'
     | '/frameworks/$id'
@@ -367,6 +389,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/dashboard'
     | '/demo-ready'
     | '/login'
     | '/marketing'
@@ -374,6 +397,7 @@ export interface FileRouteTypes {
     | '/policies'
     | '/request-demo'
     | '/settings'
+    | '/site'
     | '/tests'
     | '/assessments/iso-27001'
     | '/controls/$id'
@@ -401,6 +425,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
   DemoReadyRoute: typeof DemoReadyRoute
   LoginRoute: typeof LoginRoute
   MarketingRoute: typeof MarketingRoute
@@ -408,6 +433,7 @@ export interface RootRouteChildren {
   PoliciesRoute: typeof PoliciesRoute
   RequestDemoRoute: typeof RequestDemoRoute
   SettingsRoute: typeof SettingsRoute
+  SiteRoute: typeof SiteRoute
   TestsRoute: typeof TestsRoute
   AssessmentsIso27001Route: typeof AssessmentsIso27001RouteWithChildren
   ControlsIdRoute: typeof ControlsIdRoute
@@ -438,6 +464,13 @@ declare module '@tanstack/react-router' {
       path: '/tests'
       fullPath: '/tests'
       preLoaderRoute: typeof TestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/site': {
+      id: '/site'
+      path: '/site'
+      fullPath: '/site'
+      preLoaderRoute: typeof SiteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -487,6 +520,13 @@ declare module '@tanstack/react-router' {
       path: '/demo-ready'
       fullPath: '/demo-ready'
       preLoaderRoute: typeof DemoReadyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -668,6 +708,7 @@ const AssessmentsIso27001RouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
   DemoReadyRoute: DemoReadyRoute,
   LoginRoute: LoginRoute,
   MarketingRoute: MarketingRoute,
@@ -675,6 +716,7 @@ const rootRouteChildren: RootRouteChildren = {
   PoliciesRoute: PoliciesRoute,
   RequestDemoRoute: RequestDemoRoute,
   SettingsRoute: SettingsRoute,
+  SiteRoute: SiteRoute,
   TestsRoute: TestsRoute,
   AssessmentsIso27001Route: AssessmentsIso27001RouteWithChildren,
   ControlsIdRoute: ControlsIdRoute,
@@ -700,13 +742,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
