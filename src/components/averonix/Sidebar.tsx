@@ -12,7 +12,7 @@ interface NavGroup { label: string; items: NavItem[]; }
 
 const groups: NavGroup[] = [
   { label: "Overview", items: [
-    { to: "/", label: "Overview", icon: LayoutDashboard },
+    { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
     { to: "/tests", label: "Tests", icon: FlaskConical },
     { to: "/reports", label: "Reports", icon: FileText },
   ]},
